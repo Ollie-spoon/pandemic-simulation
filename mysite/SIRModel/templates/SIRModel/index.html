@@ -13,7 +13,80 @@
 
 <link href="//csite.nicepage.com/BundledScripts/templates-page-libs.css?version=19d9ca2e5af1cb010502eb5b20ab71d153665305" rel="stylesheet" />
 
-    
+<style>
+	.help-tip{
+    top: 26px;
+    left: 225px;
+    text-align: center;
+    background-color: #BCDBEA;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    line-height: 21px;
+    cursor: default;
+}
+
+.help-tip:before{
+    content:'?';
+    font-weight: bold;
+    color:#fff;
+}
+
+.help-tip:hover p{
+    display:block;
+    transform-origin: 100% 0%;
+
+    -webkit-animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn 0.3s ease-in-out;
+
+}
+
+.help-tip p{    /* The tooltip */
+    display: none;
+    z-index: 1;
+    position: relative;
+    text-align: left;
+    background-color: #1E2021;
+    padding: 20px;
+    width: 300px;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    right: 180px;
+    color: #FFF;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.help-tip p:after{ /* Prevents the tooltip from being hidden */
+    width:100%;
+    height:40px;
+    content:'';
+    position: absolute;
+    top:-40px;
+    left:0;
+
+}
+
+/* CSS animation */
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity:0;
+        transform: scale(0.6);
+    }
+
+    100% {
+        opacity:100%;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    0% { opacity:0; }
+    100% { opacity:100%; }
+}
+</style>
 
     </head>
     <body>
@@ -48,9 +121,43 @@
             <table>
                 <tr>
                     <th>
-                        <div style="border-radius:25px;border-width:2px;border-style:solid;padding:30px;width:200px;height:150px;width:200px;margin-left:100px;margin-right:5%;font-family:Roboto;">
-                            Wherever
-                        </div>
+                        <div style="border-radius:25px;border-width:2px;border-style:solid;padding:30px;padding-top:10px;width:325px;height:323px;margin-left:50px;margin-right:5%;font-family:Roboto;">
+                            <table style="width:250px;margin:10px;">
+                                <tr><td>
+                                    <br style="height:10px">
+                                    <p style="left:0" class="dropdown">Transmission chance</p></td><td>
+                                    <div class="help-tip"><p>This is the chance that when two people meet, the virus is passed on.</p></div>
+                                </td></tr>
+                                <tr><td><input type="range" min="1" max="100" value="50" id="tc-slider" style="width:200px;"  onchange="myFunction('tc')" class="slider">
+                                    </td><td><div id="tc-text" class="dropdown">50%</div>
+                                    </td></tr>
+
+                                <!-- This is a break -->
+
+                                <tr><td><br style="height:10px"><p style="left:0" class="dropdown">Death rate</p></td><td>
+                                <div class="help-tip"><p>This is the chance of death on infection.</p></div></td></tr>
+                                <tr><td><input type="range" min="1" max="100" value="50" id="dr-slider" style="width:200px;"  onchange="myFunction('dr')">
+                                    </td><td><div id="dr-text" class="dropdown">50%</div>
+                                    </td></tr>
+
+                                <!-- This is a break -->
+
+                                <tr><td><br style="height:10px"><p style="left:0" class="dropdown">Average Contacts</p></td><td>
+                                <div class="help-tip"><p>This is the average number of people that a person comes into contact with in a day.</p></div></td></tr>
+                                <tr><td><input type="range" min="1" max="100" value="50" id="ac-slider" style="width:200px;"  onchange="myFunction('ac')">
+                                    </td><td><div id="ac-text" class="dropdown">50%</div>
+                                    </td></tr>
+
+
+                                <!-- This is a break -->
+
+                                <tr><td><br style="height:10px"><p style="left:0" class="dropdown">Infectious Time</p></td><td>
+                                <div class="help-tip"><p>This is the number of days that a person stays infectious for.</p></div></td></tr>
+                                <tr><td><input type="range" min="1" max="100" value="50" id="it-slider" style="width:200px;"  onchange="myFunction('it')">
+                                    </td><td><div id="it-text" class="dropdown">50%</div>
+                                    </td></tr>
+                            </table>
+                            </div>
                     </th>
                     <th>
                         <div style="height:500;width:1000px;margin-left:70px;">
@@ -60,5 +167,11 @@
                 </tr>
             </table>
         </div>
+        <script>
+          function myFunction(input) {
+            var x = document.getElementById(input + '-slider');
+            document.getElementById(input + '-text').innerHTML = x.value + "%";
+          }
+        </script>
     </body>
 </html>
